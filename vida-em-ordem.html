@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida em Ordem - Organize sua vida de forma simples</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .hidden { display: none !important; }
+        
+        header { background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo-icon { width: 32px; height: 32px; background: #9333ea; border-radius: 8px; }
+        .logo h1 { font-size: 1.25rem; font-weight: bold; color: #111827; }
+        
+        .btn { padding: 0.5rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: #9333ea; color: white; }
+        .btn-primary:hover { background: #7e22ce; }
+        
+        .hero { text-align: center; padding: 4rem 1rem; }
+        .hero h2 { font-size: 2.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #111827; }
+        .hero p { font-size: 1.125rem; color: #6b7280; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 2rem; background: #9333ea; color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .hero-btn:hover { background: #7e22ce; }
+        
+        .preview { max-width: 1000px; margin: 3rem auto; background: white; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; overflow: hidden; }
+        .preview-header { background: #f3f4f6; padding: 0.75rem 1rem; border-bottom: 1px solid #e5e7eb; display: flex; gap: 0.5rem; }
+        .preview-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .preview-content { padding: 2rem; background: #f9fafb; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card { background: white; padding: 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .stat-card p { font-size: 0.875rem; color: #6b7280; margin-bottom: 0.25rem; }
+        .stat-card h3 { font-size: 2rem; font-weight: bold; color: #9333ea; }
+        
+        .task-list { background: white; padding: 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .task-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 8px; margin-bottom: 0.75rem; }
+        .task-checkbox { width: 20px; height: 20px; border: 2px solid #9ca3af; border-radius: 50%; }
+        
+        .features { background: white; padding: 4rem 1rem; border-top: 1px solid #e5e7eb; }
+        .features h3 { text-align: center; font-size: 2rem; margin-bottom: 1rem; color: #111827; }
+        .features-subtitle { text-align: center; color: #6b7280; margin-bottom: 3rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .feature { text-align: center; }
+        .feature-icon { width: 64px; height: 64px; margin: 0 auto 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .feature h4 { font-weight: 600; margin-bottom: 0.5rem; color: #111827; }
+        .feature p { color: #6b7280; font-size: 0.875rem; }
+        
+        .cta { background: #9333ea; color: white; padding: 4rem 1rem; text-align: center; }
+        .cta h3 { font-size: 2rem; margin-bottom: 1rem; }
+        .cta p { font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.9; }
+        .cta-btn { background: white; color: #9333ea; padding: 0.75rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .cta-btn:hover { background: #f3f4f6; }
+        
+        footer { background: #111827; color: white; padding: 3rem 1rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        footer h4 { margin-bottom: 1rem; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.5rem; }
+        .footer-links a { color: #9ca3af; text-decoration: none; font-size: 0.875rem; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #374151; color: #9ca3af; font-size: 0.875rem; }
+        
+        .app-container { background: #f9fafb; min-height: 100vh; }
+        .app-header { background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 0; }
+        .app-header-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .nav-tabs { display: flex; gap: 0.5rem; overflow-x: auto; }
+        .nav-tab { padding: 0.5rem 1rem; border: none; border-radius: 8px; background: #f3f4f6; color: #6b7280; cursor: pointer; white-space: nowrap; transition: all 0.3s; }
+        .nav-tab.active { background: #9333ea; color: white; }
+        .nav-tab:hover:not(.active) { background: #e5e7eb; }
+        <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida em Ordem - Organize sua vida de forma simples</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .hidden { display: none !important; }
+        
+        header { background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; }
+        .logo-icon { width: 32px; height: 32px; background: #9333ea; border-radius: 8px; }
+        .logo h1 { font-size: 1.25rem; font-weight: bold; color: #111827; }
+        
+        .btn { padding: 0.5rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: #9333ea; color: white; }
+        .btn-primary:hover { background: #7e22ce; }
+        
+        .hero { text-align: center; padding: 4rem 1rem; }
+        .hero h2 { font-size: 2.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #111827; }
+        .hero p { font-size: 1.125rem; color: #6b7280; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 2rem; background: #9333ea; color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .hero-btn:hover { background: #7e22ce; }
+        
+        .preview { max-width: 1000px; margin: 3rem auto; background: white; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; overflow: hidden; }
+        .preview-header { background: #f3f4f6; padding: 0.75rem 1rem; border-bottom: 1px solid #e5e7eb; display: flex; gap: 0.5rem; }
+        .preview-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .preview-content { padding: 2rem; background: #f9fafb; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card { background: white; padding: 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .stat-card p { font-size: 0.875rem; color: #6b7280; margin-bottom: 0.25rem; }
+        .stat-card h3 { font-size: 2rem; font-weight: bold; color: #9333ea; }
+        
+        .task-list { background: white; padding: 1.25rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .task-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 8px; margin-bottom: 0.75rem; }
+        .task-checkbox { width: 20px; height: 20px; border: 2px solid #9ca3af; border-radius: 50%; }
+        
+        .features { background: white; padding: 4rem 1rem; border-top: 1px solid #e5e7eb; }
+        .features h3 { text-align: center; font-size: 2rem; margin-bottom: 1rem; color: #111827; }
+        .features-subtitle { text-align: center; color: #6b7280; margin-bottom: 3rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .feature { text-align: center; }
+        .feature-icon { width: 64px; height: 64px; margin: 0 auto 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .feature h4 { font-weight: 600; margin-bottom: 0.5rem; color: #111827; }
+        .feature p { color: #6b7280; font-size: 0.875rem; }
+        
+        .cta { background: #9333ea; color: white; padding: 4rem 1rem; text-align: center; }
+        .cta h3 { font-size: 2rem; margin-bottom: 1rem; }
+        .cta p { font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.9; }
+        .cta-btn { background: white; color: #9333ea; padding: 0.75rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .cta-btn:hover { background: #f3f4f6; }
+        
+        footer { background: #111827; color: white; padding: 3rem 1rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        footer h4 { margin-bottom: 1rem; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.5rem; }
+        .footer-links a { color: #9ca3af; text-decoration: none; font-size: 0.875rem; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #374151; color: #9ca3af; font-size: 0.875rem; }
+        
+        .app-container { background: #f9fafb; min-height: 100vh; }
+        .app-header { background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 0; }
+        .app-header-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .nav-tabs { display: flex; gap: 0.5rem; overflow-x: auto; }
+        .nav-tab { padding: 0.5rem 1rem; border: none; border-radius: 8px; background: #f3f4f6; color: #6b7280; cursor: pointer; white-space: nowrap; transition: all 0.3s; }
+        .nav-tab.active { background: #9333ea; color: white; }
+        .nav-tab:hover:not(.active) { background: #e5e7eb; }
+        
+        .app-content { padding: 1.5rem 0; }
+        .quick-input { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .input-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .input-group input { flex: 1; min-width: 200px; padding: 0.75rem 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1rem; }
+        .input-group input:focus { outline: none; border-color: #9333ea; }
+        .input-btns { display: flex; gap: 0.5rem; }
+        .icon-btn { padding: 0.75rem; border: none; border-radius: 8px; color: white; cursor: pointer; transition: all 0.3s; }
+        .icon-btn:hover { opacity: 0.9; }
+        
+        .dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card-app { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .stat-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+        .stat-icon { padding: 0.75rem; border-radius: 8px; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: #111827; }
+        .stat-label { font-size: 0.875rem; color: #6b7280; }
+        
+        .task-section { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; margin-bottom: 1.5rem; }
+        .section-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: #111827; }
+        .task-item-app { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; border: 1px solid #d1d5db; background: white; border-radius: 8px; margin-bottom: 0.75rem; cursor: pointer; transition: all 0.3s; }
+        .task-item-app:hover { background: #f9fafb; }
+        .task-check { width: 24px; height: 24px; border: 2px solid #9ca3af; border-radius: 50%; flex-shrink: 0; cursor: pointer; }
+        .task-check.completed { background: #10b981; border-color: #10b981; position: relative; }
+        .task-check.completed::after { content: '✓'; position: absolute; color: white; font-size: 14px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .task-content { flex: 1; }
+        .task-title { font-weight: 500; color: #111827; }
+        .task-title.completed { text-decoration: line-through; color: #6b7280; }
+        .task-time { font-size: 0.875rem; color: #6b7280; }
+        .task-badge { padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 500; }
+        .badge-event { background: #dbeafe; color: #1e40af; }
+        .badge-task { background: #f3e8ff; color: #7e22ce; }
+        .badge-shopping { background: #fed7aa; color: #9a3412; }
+        .badge-reminder { background: #fef3c7; color: #92400e; }
+        
+        .toast { position: fixed; top: 20px; right: 20px; background: white; padding: 1rem 1.5rem; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-left: 4px solid #10b981; z-index: 1000; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @media (max-width: 768px) { .hero h2 { font-size: 2rem; } .input-group { flex-direction: column; } .input-btns { width: 100%; justify-content: stretch; } .icon-btn { flex: 1; } }
+    </style>
+</head>
+<body>
+    <div id="landingPage">
+        <header><div class="container"><div class="header-content"><div class="logo"><div class="logo-icon"></div><h1>Vida em Ordem</h1></div><button class="btn btn-primary" onclick="enterApp()">Entrar</button></div></div></header>
+        <section class="hero"><div class="container"><h2>Organize sua vida de forma simples</h2><p>Gerencie suas tarefas, compromissos e listas de compras em um só lugar. Rápido, fácil e acessível de qualquer dispositivo.</p><button class="hero-btn" onclick="enterApp()">Começar agora <span>→</span></button><div class="preview"><div class="preview-header"><div class="preview-dot" style="background: #f87171;"></div><div class="preview-dot" style="background: #fbbf24;"></div><div class="preview-dot" style="background: #34d399;"></div></div><div class="preview-content"><div class="stats-grid"><div class="stat-card"><p>Hoje</p><h3>3</h3></div><div class="stat-card"><p>Próximas</p><h3>5</h3></div><div class="stat-card"><p>Concluídas</p><h3>85%</h3></div></div><div class="task-list"><div class="task-item"><div class="task-checkbox"></div><div>Dentista às 15h</div></div><div class="task-item"><div class="task-checkbox"></div><div>Comprar pão</div></div></div></div></div></div></section>
+        <section class="features"><div class="container"><h3>Tudo que você precisa</h3><p class="features-subtitle">Funcionalidades pensadas para facilitar seu dia a dia</p><div class="features-grid"><div class="feature"><div class="feature-icon" style="background: #f3e8ff;">✓</div><h4>Tarefas</h4><p>Organize suas atividades diárias de forma prática</p></div><div class="feature"><div class="feature-icon" style="background: #dbeafe;">📅</div><h4>Agenda</h4><p>Visualize seus compromissos em um calendário completo</p></div><div class="feature"><div class="feature-icon" style="background: #d1fae5;">🛒</div><h4>Compras</h4><p>Crie listas de compras e nunca esqueça nada</p></div><div class="feature"><div class="feature-icon" style="background: #fef3c7;">🔔</div><h4>Lembretes</h4><p>Receba notificações de eventos importantes</p></div></div></div></section>
+        <section class="cta"><div class="container"><h3>Pronto para organizar sua vida?</h3><p>Comece agora gratuitamente. Não precisa cartão de crédito.</p><button class="cta-btn" onclick="enterApp()">Experimentar grátis →</button></div></section>
+        <footer><div class="container"><div class="footer-grid"><div><h4>Vida em Ordem</h4><p style="color: #9ca3af; font-size: 0.875rem;">Organize sua vida de forma simples.</p></div><div><h4>Produto</h4><ul class="footer-links"><li><a href="#">Recursos</a></li><li><a href="#">Preços</a></li></ul></div><div><h4>Empresa</h4><ul class="footer-links"><li><a href="#">Sobre</a></li><li><a href="#">Contato</a></li></ul></div><div><h4>Legal</h4><ul class="footer-links"><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 Vida em Ordem. Todos os direitos reservados.</p></div></div></footer>
+    </div>
+    <div id="appInterface" class="app-container hidden">
+        <div class="app-header"><div class="container"><div class="app-header-content"><div class="logo"><div class="logo-icon"></div><h1>Vida em Ordem</h1></div><button class="btn btn-primary" onclick="exitApp()">Sair</button></div><div class="nav-tabs"><button class="nav-tab active" onclick="changeTab('overview')">📊 Início</button><button class="nav-tab" onclick="changeTab('tasks')">✓ Tarefas</button><button class="nav-tab" onclick="changeTab('calendar')">📅 Agenda</button><button class="nav-tab" onclick="changeTab('shopping')">🛒 Compras</button></div></div></div>
+        <div class="container app-content"><div class="quick-input"><div class="input-group"><input type="text" id="taskInput" placeholder='Ex: "Dentista terça 15h" ou "Comprar pão"' /><div class="input-btns"><button class="icon-btn" style="background: #9333ea;" onclick="handleVoice()">🎤</button><button class="icon-btn" style="background: #3b82f6;" onclick="handlePhoto()">📷</button><button class="icon-btn" style="background: #10b981;" onclick="addTask()">+</button></div></div></div>
+        <div id="overviewTab"><div class="dashboard-stats"><div class="stat-card-app"><div class="stat-header"><div class="stat-icon" style="background: #dbeafe; color: #1e40af;">🕐</div><div><div class="stat-label">Hoje</div><div class="stat-value" id="todayCount">3</div></div></div><p class="stat-label">tarefas para completar</p></div><div class="stat-card-app"><div class="stat-header"><div class="stat-icon" style="background: #f3e8ff; color: #7e22ce;">📅</div><div><div class="stat-label">Próximas</div><div class="stat-value" id="upcomingCount">2</div></div></div><p class="stat-label">eventos futuros</p></div><div class="stat-card-app"><div class="stat-header"><div class="stat-icon" style="background: #d1fae5; color: #065f46;">📈</div><div><div class="stat-label">Concluídas</div><div class="stat-value" id="completionRate">0%</div></div></div><p class="stat-label"><span id="completedCount">0</span> de <span id="totalCount">0</span> tarefas</p></div></div><div class="task-section"><h3 class="section-title">Agenda de Hoje</h3><div id="todayTasks"></div></div></div>
+        <div id="tasksTab" class="hidden"><div class="task-section"><h3 class="section-title">Tarefas Ativas</h3><div id="activeTasks"></div></div><div class="task-section"><h3 class="section-title">Concluídas</h3><div id="completedTasks"></div></div></div>
+        <div id="calendarTab" class="hidden"><div class="task-section"><h3 class="section-title">Calendário</h3><p style="color: #6b7280;">Em breve: visualização de calendário completo</p></div></div>
+        <div id="shoppingTab" class="hidden"><div class="task-section"><h3 class="section-title">Lista de Compras</h3><div id="shoppingList"></div></div></div>
+        </div>
+    </div>
+    <script>
+        let tasks = [{id:1,title:'Dentista',completed:false,category:'event',time:'15:00',date:new Date()},{id:2,title:'Comprar pão',completed:false,category:'task',date:new Date()},{id:3,title:'Pagar conta de luz',completed:false,category:'reminder',date:new Date(Date.now()+172800000)}];
+        function enterApp(){document.getElementById('landingPage').classList.add('hidden');document.getElementById('appInterface').classList.remove('hidden');renderTasks();}
+        function exitApp(){document.getElementById('appInterface').classList.add('hidden');document.getElementById('landingPage').classList.remove('hidden');}
+        function changeTab(tab){document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));event.target.classList.add('active');document.getElementById('overviewTab').classList.add('hidden');document.getElementById('tasksTab').classList.add('hidden');document.getElementById('calendarTab').classList.add('hidden');document.getElementById('shoppingTab').classList.add('hidden');document.getElementById(tab+'Tab').classList.remove('hidden');renderTasks();}
+        function addTask(){const input=document.getElementById('taskInput');const text=input.value.trim();if(!text)return;const newTask={id:Date.now(),title:text,completed:false,category:detectCategory(text),date:new Date()};const timeMatch=text.match(/(\d{1,2})h?(\d{2})?/);if(timeMatch)newTask.time=timeMatch[1].padStart(2,'0')+':'+(timeMatch[2]||'00');tasks.push(newTask);input.value='';showToast('Adicionado!');renderTasks();}
+        function detectCategory(text){const lower=text.toLowerCase();if(lower.includes('comprar')||lower.includes('mercado'))return'shopping';if(lower.includes('pagar')||lower.includes('conta'))return'reminder';if(lower.includes('às')||lower.includes('h'))return'event';return'task';}
+        function toggleTask(id){const task=tasks.find(t=>t.id===id);if(task){task.completed=!task.completed;renderTasks();}}
+        function renderTasks(){renderOverview();renderTasksTab();renderShopping();updateStats();}
+        function renderOverview(){const today=new Date().toDateString();const todayTasks=tasks.filter(t=>new Date(t.date).toDateString()===today);const container=document.getElementById('todayTasks');container.innerHTML=todayTasks.length===0?'<p style="text-align:center;color:#6b7280;padding:2rem;">Nenhuma tarefa para hoje!</p>':todayTasks.map(task=>createTaskHTML(task)).join('');}
+        function renderTasksTab(){const active=tasks.filter(t=>!t.completed&&(t.category==='task'||t.category==='reminder'));const completed=tasks.filter(t=>t.completed);document.getElementById('activeTasks').innerHTML=active.length===0?'<p style="text-align:center;color:#6b7280;padding:2rem;">Nenhuma tarefa ativa</p>':active.map(task=>createTaskHTML(task)).join('');document.getElementById('completedTasks').innerHTML=completed.length===0?'<p style="text-align:center;color:#6b7280;padding:2rem;">Nenhuma tarefa concluída</p>':completed.map(task=>createTaskHTML(task)).join('');}
+        function renderShopping(){const shopping=tasks.filter(t=>t.category==='shopping');document.getElementById('shoppingList').innerHTML=shopping.length===0?'<p style="text-align:center;color:#6b7280;padding:2rem;">Sua lista está vazia</p>':shopping.map(task=>createTaskHTML(task)).join('');}
+        function createTaskHTML(task){return`<div class="task-item-app" onclick="toggleTask(${task.id})"><div class="task-check ${task.completed?'completed':''}"></div><div class="task-content"><div class="task-title ${task.completed?'completed':''}">${task.title}</div>${task.time?`<div class="task-time">${task.time}</div>`:''}</div><span class="task-badge badge-${task.category}">${getCategoryName(task.category)}</span></div>`;}
+        function updateStats(){const today=new Date().toDateString();const todayTasks=tasks.filter(t=>new Date(t.date).toDateString()===today);const upcomingTasks=tasks.filter(t=>new Date(t.date)>new Date());const completedTasks=tasks.filter(t=>t.completed);const total=tasks.length;const completionRate=total>0?Math.round((completedTasks.length/total)*100):0;document.getElementById('todayCount').textContent=todayTasks.length;document.getElementById('upcomingCount').textContent=upcomingTasks.length;document.getElementById('completionRate').textContent=completionRate+'%';document.getElementById('completedCount').textContent=completedTasks.length;document.getElementById('totalCount').textContent=total;}
+        function getCategoryName(category){const names={'event':'Evento','task':'Tarefa','shopping':'Compra','reminder':'Lembrete'};return names[category]||'Tarefa';}
+        function handleVoice(){showToast('Funcionalidade de voz em breve!');}
+        function handlePhoto(){showToast('Funcionalidade de foto em breve!');}
+        function showToast(message){const toast=document.createElement('div');toast.className='toast';toast.textContent=message;document.body.appendChild(toast);setTimeout(()=>toast.remove(),3000);}
+        document.addEventListener('DOMContentLoaded',()=>{const input=document.getElementById('taskInput');if(input)input.addEventListener('keypress',e=>{if(e.key==='Enter')addTask();});});
+    </script>
+</body>
+</html>
+        .app-content { padding: 1.5rem 0; }
+        .quick-input { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .input-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .input-group input { flex: 1; min-width: 200px; padding: 0.75rem 1rem; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1rem; }
+        .input-group input:focus { outline: none; border-color: #9333ea; }
+        .input-btns { display: flex; gap: 0.5rem; }
+        .icon-btn { padding: 0.75rem; border: none; border-radius: 8px; color: white; cursor: pointer; transition: all 0.3s; }
+        .icon-btn:hover { opacity: 0.9; }
+        
+        .dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card-app { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
+        .stat-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+        .stat-icon { padding: 0.75rem; border-radius: 8px; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: #111827; }
+        .stat-label { font-size: 0.875rem; color: #6b7280; }
+        
+        .task-section { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; margin-bottom: 1.5rem; }
+        .section-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: #111827; }
+        .task-item-app { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; border: 1px solid #d1d5db; background: white; border-radius: 8px; margin-bottom: 0.75rem; cursor: pointer; transition: all 0.3s; }
+        .task-item-app:hover { background: #f9fafb; }
+        .task-check { width: 24px; height: 24px; border: 2px solid #9ca3af; border-radius: 50%; flex-shrink: 0; cursor: pointer; }
+        .task-check.completed { background: #10b981; border-color: #10b981; position: relative; }
+        .task-check.completed::after { content: '✓'; position: absolute; color: white; font-size: 14px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .task-content { flex: 1; }
+        .task-title { font-weight: 500; color: #111827; }
+        .task-title.completed { text-decoration: line-through; color: #6b7280; }
+        .task-time { font-size: 0.875rem; color: #6b7280; }
+        .task-badge { padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 500; }
+        .badge-event { background: #dbeafe; color: #1e40af; }
+        .badge-task { background: #f3e8ff; color: #7e22ce; }
+        .badge-shopping { background: #fed7aa; color: #9a3412; }
+        .badge-reminder { background: #fef3c7; color: #92400e; }
+        
+        .toast { position: fixed; top: 20px; right: 20px; background: white; padding: 1rem 1.5rem; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-left: 4px solid #10b981; z-index: 1000; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @media (max-width: 768px) { .hero h2 { font-size: 2rem; } .input-group { flex-direction: column; } .input-btns { width: 100%; justify-content: stretch; } .icon-btn { flex: 1; } }
+    </style>
+</head>
+<body>
+    <div id="landingPage">
+        <header><div class="container"><div class="header-content"><div class="logo"><div class="logo-icon"></div><h1>Vida em Ordem</h1></div><button class="btn btn-primary" onclick="enterApp()">Entrar</button></div></div></header>
+        <section class="hero"><div class="container"><h2>Organize sua vida de forma simples</h2><p>Gerencie suas tarefas, compromissos e listas de compras em um só lugar. Rápido, fácil e acessível de qualquer dispositivo.</p><button class="hero-btn" onclick="enterApp()">Começar agora <span>→</span></button><div class="preview"><div class="preview-header"><div class="preview-dot" style="background: #f87171;"></div><div class="preview-dot" style="background: #fbbf24;"></div><div class="preview-dot" style="background: #34d399;"></div></div><div class="preview-content"><div class="stats-grid"><div class="stat-card"><p>Hoje</p><h3>3</h3></div><div class="stat-card"><p>Próximas</p><h3>5</h3></div><div class="stat-card"><p>Concluídas</p><h3>85%</h3></div></div><div class="task-list"><div class="task-item"><div class="task-checkbox"></div><div>Dentista às 15h</div></div><div class="task-item"><div class="task-checkbox"></div><div>Comprar pão</div></div></div></div></div></div></section>
+        <section class="features"><div class="container"><h3>Tudo que você precisa</h3><p class="features-subtitle">Funcionalidades pensadas para facilitar seu dia a dia</p><div class="features-grid"><div class="feature"><div class="feature-icon" style="background: #f3e8ff;">✓</div><h4>Tarefas</h4><p>Organize suas atividades diárias de forma prática</p></div><div class="feature"><div class="feature-icon" style="background: #dbeafe;">📅</div><h4>Agenda</h4><p>Visualize seus compromissos em um calendário completo</p></div><div class="feature"><div class="feature-icon" style="background: #d1fae5;">🛒</div><h4>Compras</h4><p>Crie listas de compras e nunca esqueça nada</p></div><div class="feature"><div class="feature-icon" style="background: #fef3c7;">🔔</div><h4>Lembretes</h4><p>Receba notificações de eventos importantes</p></div></div></div></section>
+        <section class="cta"><div class="container"><h3>Pronto para organizar sua vida?</h3><p>Comece agora gratuitamente. Não precisa cartão de crédito.</p><button class="cta-btn" onclick="enterApp()">Experimentar grátis →</button></div></section>
+        <footer><div class="container"><div class="footer-grid"><div><h4>Vida em Ordem</h4><p style="color: #9ca3af; font-size: 0.875rem;">Organize sua vida de forma simples.</p></div><div><h4>Produto</h4><ul class="footer-links"><li><a href="#">Recursos</a></li><li><a href="#">Preços</a></li></ul></div><div><h4>Empresa</h4><ul class="footer-links"><li><a href="#">Sobre</a></li><li><a href="#">Contato</a></li></ul></div><div><h4>Legal</h4><ul class="footer-links"><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 Vida em Ordem. Todos os direitos reservados.</p></div></div></footer>
+    </div>
+    <div id="appInterface" class="app-container hidden">
+        <div class="app-header"><div class="container"><div class="app-header-content"><div class="logo"><div class="logo-icon"></div><h1>Vida em Ordem</h1></div><button class="btn btn-primary" onclick="exitApp()">Sair</button></div><div class="nav-tabs"><button class="nav-tab active" onclick="changeTab('overview')">📊 Início</button><button class="nav-tab" onclick="changeTab('tasks')">✓ Tarefas</button><button class="nav-tab" onclick="changeTab('calendar')">📅 Agenda</button><button class="nav-tab" onclick="changeTab('shopping')">🛒 Compras</button></div></div></div>
+        <div class="container app-content"><div class="quick-input"><div class="input-group"><input type="text" id="taskInput" placeholder='Ex: "Dentista terça 15h" ou "Comprar pão"' /><div class="input-btns"><button class="icon-btn" style="background: #9333ea;" onclick="handleVoice()">🎤</button><button class="icon-btn" style="background: #3b82f6;" onclick="handlePhoto()">📷</button><button class="icon-btn" style="background: #10b981;" onclick="addTask()">+</button></div></div></div>
+        <div id="overviewTab"><div class="dashboard-stats"><div class="stat-card-app"><div class="stat-header"><div class="stat-icon" style="background: #dbeafe; color: #1e40af;">🕐</div><div><div class="stat-label">Hoje</div><div class="stat-value" id="todayCount">3</div></div></div><p class="stat-label">tarefas para completar</p></div><div class="stat-card-app"><div class="stat-header"><div class="stat-icon" style="background: #f3e8ff; color: #7e22ce;">📅</div><div><div class="stat-label">Próximas</div><div class="stat-value" id="upcomingCount">2</div></div></div><p class="stat-label">eventos futuros</p></div><div class="stat-card-app"><div class="stat-header"><div class="stat-icon" style="background: #d1fae5; color: #065f46;">📈</div><div><div class="stat-label">Concluídas</div><div class="stat-value" id="completionRate">0%</div></div></div><p class="stat-label"><span id="completedCount">0</span> de <span id="totalCount">0</span> tarefas</p></div></div><div class="task-section"><h3 class="section-title">Agenda de Hoje</h3><div id="todayTasks"></div></div></div>
+        <div id="tasksTab" class="hidden"><div class="task-section"><h3 class="section-title">Tarefas Ativas</h3><div id="activeTasks"></div></div><div class="task-section"><h3 class="section-title">Concluídas</h3><div id="completedTasks"></div></div></div>
+        <div id="calendarTab" class="hidden"><div class="task-section"><h3 class="section-title">Calendário</h3><p style="color: #6b7280;">Em breve: visualização de calendário completo</p></div></div>
+        <div id="shoppingTab" class="hidden"><div class="task-section"><h3 class="section-title">Lista de Compras</h3><div id="shoppingList"></div></div></div>
+        </div>
+    </div>
+    <script>
+        let tasks = [{id:1,title:'Dentista',completed:false,category:'event',time:'15:00',date:new Date()},{id:2,title:'Comprar pão',completed:false,category:'task',date:new Date()},{id:3,title:'Pagar conta de luz',completed:false,category:'reminder',date:new Date(Date.now()+172800000)}];
+        function enterApp(){document.getElementById('landingPage').classList.add('hidden');document.getElementById('appInterface').classList.remove('hidden');renderTasks();}
+        function exitApp(){document.getElementById('appInterface').classList.add('hidden');document.getElementById('landingPage').classList.remove('hidden');}
+        function changeTab(tab){document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));event.target.classList.add('active');document.getElementById('overviewTab').classList.add('hidden');document.getElementById('tasksTab').classList.add('hidden');document.getElementById('calendarTab').classList.add('hidden');document.getElementById('shoppingTab').classList.add('hidden');document.getElementById(tab+'Tab').classList.remove('hidden');renderTasks();}
+        function addTask(){const input=document.getElementById('taskInput');const text=input.value.trim();if(!text)return;const newTask={id:Date.now(),title:text,completed:false,category:detectCategory(text),date:new Date()};const timeMatch=text.match(/(\d{1,2})h?(\d{2})?/);if(timeMatch)newTask.time=timeMatch[1].padStart(2,'0')+':'+(timeMatch[2]||'00');tasks.push(newTask);input.value='';showToast('Adicionado!');renderTasks();}
+        function detectCategory(text){const lower=text.toLowerCase();if(lower.includes('comprar')||lower.includes('mercado'))return'shopping';if(lower.includes('pagar')||lower.includes('conta'))return'reminder';if(lower.includes('às')||lower.includes('h'))return'event';return'task';}
+        function toggleTask(id){const task=tasks.find(t=>t.id===id);if(task){task.completed=!task.completed;renderTasks();}}
+        function renderTasks(){renderOverview();renderTasksTab();renderShopping();updateStats();}
+        function renderOverview(){const today=new Date().toDateString();const todayTasks=tasks.filter(t=>new Date(t.date).toDateString()===today);const container=document.getElementById('todayTasks');container.innerHTML=todayTasks.length===0?'<p style="text-align:center;color:#6b7280;padding:2rem;">Nenhuma tarefa para hoje!</p>':todayTasks.map(task=>createTaskHTML(task)).join('');}
+        function renderTasksTab(){const active=tasks.filter(t=>!t.completed&&(t.category==='task'||t.category==='reminder'));const completed=tasks.filter(t=>t.completed);document.getElementById('activeTasks').innerHTML=active.length===0?'<p style="text-align:center;color:#6b7280;padding:2rem;">Nenhuma tarefa ativa</p>':active.map(task=>createTaskHTML(task)).join('');document.getElementById('completedTasks').innerHTML=completed.length===0?'<p style="text-align:center;color:#6b7280;padding:2rem;">Nenhuma tarefa concluída</p>':completed.map(task=>createTaskHTML(task)).join('');}
+        function renderShopping(){const shopping=tasks.filter(t=>t.category==='shopping');document.getElementById('shoppingList').innerHTML=shopping.length===0?'<p style="text-align:center;color:#6b7280;padding:2rem;">Sua lista está vazia</p>':shopping.map(task=>createTaskHTML(task)).join('');}
+        function createTaskHTML(task){return`<div class="task-item-app" onclick="toggleTask(${task.id})"><div class="task-check ${task.completed?'completed':''}"></div><div class="task-content"><div class="task-title ${task.completed?'completed':''}">${task.title}</div>${task.time?`<div class="task-time">${task.time}</div>`:''}</div><span class="task-badge badge-${task.category}">${getCategoryName(task.category)}</span></div>`;}
+        function updateStats(){const today=new Date().toDateString();const todayTasks=tasks.filter(t=>new Date(t.date).toDateString()===today);const upcomingTasks=tasks.filter(t=>new Date(t.date)>new Date());const completedTasks=tasks.filter(t=>t.completed);const total=tasks.length;const completionRate=total>0?Math.round((completedTasks.length/total)*100):0;document.getElementById('todayCount').textContent=todayTasks.length;document.getElementById('upcomingCount').textContent=upcomingTasks.length;document.getElementById('completionRate').textContent=completionRate+'%';document.getElementById('completedCount').textContent=completedTasks.length;document.getElementById('totalCount').textContent=total;}
+        function getCategoryName(category){const names={'event':'Evento','task':'Tarefa','shopping':'Compra','reminder':'Lembrete'};return names[category]||'Tarefa';}
+        function handleVoice(){showToast('Funcionalidade de voz em breve!');}
+        function handlePhoto(){showToast('Funcionalidade de foto em breve!');}
+        function showToast(message){const toast=document.createElement('div');toast.className='toast';toast.textContent=message;document.body.appendChild(toast);setTimeout(()=>toast.remove(),3000);}
+        document.addEventListener('DOMContentLoaded',()=>{const input=document.getElementById('taskInput');if(input)input.addEventListener('keypress',e=>{if(e.key==='Enter')addTask();});});
+    </script>
+</body>
+</html>
